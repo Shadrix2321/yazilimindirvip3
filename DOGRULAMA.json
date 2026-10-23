@@ -1,0 +1,106 @@
+{
+  "game": "Son Koridor",
+  "version": "1.7.0",
+  "verifiedAt": "2026-10-23T03:02:22.251369+00:00",
+  "engine": {
+    "engine": "Babylon.js",
+    "version": "9.32.0",
+    "threeIncluded": false
+  },
+  "changes": {
+    "shelves": {
+      "aisleRows": 144,
+      "independentSectionsPerRow": 8,
+      "sectionLengthMetres": 2.4,
+      "totalSections": 1152,
+      "singleSectionFalls": true,
+      "neighbourSectionsStayUpright": true,
+      "standingRowsKeepMergedGeometry": true,
+      "differentSectionLabelStrips": 4,
+      "sameRowCanLoseTwoDifferentSections": true
+    },
+    "physics": {
+      "fixedStepHz": 60,
+      "gravity": 9.81,
+      "decorativeProductsPerFullSection": 48,
+      "actualStockModelsUsed": true,
+      "objectiveSlotsExcludedFromStock": true,
+      "shapeDependentBounceAndFriction": true,
+      "roundProductsRollFarther": true,
+      "nearbyObstacleAndProductContacts": true,
+      "simulationStopsBySeconds": 8,
+      "rendering": "thin-instance batches per model, geometry shared before impact",
+      "scope": "Lightweight bounded product physics, not a full rigid-body engine. Cosmetic debris does not block player navigation."
+    },
+    "objectives": {
+      "onlyImpactedSectionDrops": true,
+      "animatedFall": true,
+      "hostDeterminedFinalPositions": true,
+      "collectibleAfterSettling": true,
+      "neighbourObjectivesPreserved": true
+    },
+    "ai": {
+      "angerDrivenSectionSelection": true,
+      "realStaminaLimitedZigzagScenarioPassed": true,
+      "firstStrikeAfterSeconds": 20,
+      "minimumStrikeIntervalSeconds": 60,
+      "maximumSectionsPerNight": 2,
+      "landingZonePlayerAndTrolleyChecks": true
+    },
+    "network": {
+      "protocol": "son-koridor-17",
+      "allPlayersNeedVersion": "1.7.0",
+      "sectionIndexInSharedState": true,
+      "fixedStepReplayForLateJoin": true
+    }
+  },
+  "tests": {
+    "passed": 114,
+    "failed": 0,
+    "skipped": 0,
+    "runner": "node --test --test-reporter=spec tests/*.test.mjs",
+    "log": "son-koridor-1.7.0-dogrulama/otomatik-testler.txt",
+    "newCoverage": [
+      "single-section and two-section collision footprints without changing neighbours",
+      "only impacted objectives fall, detached public metadata, another section in same row can fall later",
+      "48 actual stock records detach, bounce and sleep above ground",
+      "same initial impulse rolls round products farther than boxes",
+      "20/60/144 FPS and late-join replay agree exactly",
+      "mission groceries reachable across 30 bay/side/row scenarios",
+      "eight independent frame geometries and final collision bounds agree",
+      "Babylon NullEngine thin instances, ground-safe rotated mesh transforms, sleeping buffers and disposal"
+    ],
+    "existingCoverage": "All previous 106 tests rerun, including real noisy zigzag movement, chase/search, capture, checkout, trolley, light, stock, network and launcher regressions."
+  },
+  "browser": {
+    "testedThisVersion": false,
+    "runtime": "game-1c239ce792.js",
+    "reason": "cua.getState returned: Local browser use is disabled in Work settings. No alternate browser automation was used.",
+    "gpuFpsMeasured": false,
+    "audioListened": false,
+    "fileDoubleClickTested": false
+  },
+  "sceneComponentTest": {
+    "engine": "Babylon.js NullEngine",
+    "thinInstanceMatricesTested": true,
+    "renderedGpuImage": false
+  },
+  "network": {
+    "realTwoClientTestThisVersion": false,
+    "automaticProtocolTestsPassed": true,
+    "schoolNetworkTested": false
+  },
+  "priorVerification": {
+    "version": "1.6.3",
+    "note": "Historical report; no previous GPU/FPS sample is a 1.7.0 result.",
+    "report": "son-koridor-1.6.3-kaynak/DOGRULAMA.json"
+  },
+  "limitations": [
+    "No visual gameplay or GPU FPS test; browser access is disabled.",
+    "No real two-client or school-network test this release.",
+    "Product contact shapes are approximations and decorative stock does not obstruct players."
+  ],
+  "files": {
+    "game-1c239ce792.js": "1c239ce792d5bdab79fbf23a1fb312f9c9fa5b8a7d462c2c4754f13aeb1c9f7f"
+  }
+}

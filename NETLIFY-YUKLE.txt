@@ -1,0 +1,105 @@
+SON KORİDOR 1.7.0 — BABYLON.JS — HAZIR OYUN
+
+NETLIFY'E YÜKLE
+1. ZIP dosyasının tamamını çıkart.
+2. index.html'nin bulunduğu oyun klasörünü Netlify'in yükleme alanına bırak.
+3. Verilen site bağlantısını aç. Oyun menüsü gelir.
+4. Bir kişi ODA OLUŞTUR'u seçer, 2–8 kişi sınırını belirler.
+5. Arkadaşı aynı siteyi açıp 5 haneli kodu yazar. İstersen lobiden
+   DAVET BAĞLANTISINI KOPYALA düğmesiyle siteyi ve kodu birlikte paylaş.
+6. Oda sahibi geceyi başlatır.
+
+index.html tek başına başka bir yere taşınmamalı. JavaScript, CSS, sesler
+ve modeller aynı pakette ayrı dosyalardadır. Netlify klasör yükler.
+Node.js, terminal, Netlify Functions veya anahtar kurulumu gerekmiyor.
+
+BİLGİSAYARDA AÇ
+Oyun klasöründeki index.html dosyasına çift tıkla. TEK BAŞINA BAŞLA'yı seç.
+Yerel tek oyunculu mod için internet gerekmez. Çok oyunculu mod internet ister.
+Tarayıcı ses ve fare kilidi için ilk tıklamayı isteyebilir.
+
+ODA BAĞLANTISI
+Netlify oyun dosyalarını sunar. Odayı oluşturan kişinin tarayıcısı ortak
+oyunu yönetir. PeerJS'in hazır eşleşme hizmeti oyuncuları buluşturur;
+oyun verileri WebRTC ile aktarılır. Oda sahibi oyunu açık tutmalıdır.
+Oda sahibi çıkarsa oda kapanır; yeni oda oluşturulabilir.
+Herkes aynı Netlify adresini ve v1.7.0 sürümünü kullanmalı. Eski sekmeyi yenile.
+Bazı iş/okul/mobil ağlarında doğrudan WebRTC bağlantısı kurulamayabilir.
+PeerJS’in standart STUN/TURN bağlantı yolları kullanılır. Ağ WebRTC veya bu
+hizmetleri engelliyorsa bağlantı kurulamaz; filtre aşma yöntemi eklenmez.
+Okul ağı için site ve bağlantı hizmetlerine ağ yöneticisinin izin vermesi gerekir.
+Kod yazılırken eşleşme bağlantısı hazırlanır; ilerleme ve iptal düğmesi görünür.
+
+TUŞLAR
+WASD hareket · Fare bakış · SHIFT koş · C sessiz yürü · E ürün al
+F fener aç/kapat · M harita · ESC menü
+Alt tuş ipucunda FENER AÇIK / KAPALI durumu gösterilir.
+
+HTML giriş dosyasıdır; oyun mantığı ayrı, küçültülmüş JavaScript dosyasındadır.
+Tarayıcının indirdiği kod ve varlıklar görülebilir. Bu statik sürümde
+ortak oyun motoru da oda sahibinin tarayıcısında çalışır ve gizli değildir.
+
+OYUN DÖNGÜSÜ
+Herkes kendi listesindeki ürünleri kendi sepetine toplar. İlk gece ekip toplamı:
+1 kişi 6 · 2 kişi 10 · 3 kişi 14 · 4 kişi 18 (her ek oyuncu +4).
+Sonraki her gece ekip toplamına 3 ürün eklenir. 10 gece vardır.
+Listeler bitince yaşayan ekip ilk teslimat alanında 10 saniye birlikte kalmalı.
+Alandan biri çıkarsa sayaç başa döner. Gece sonunda kim kaç ürün topladı görünür ve ekibin canları 3’e yenilenir.
+
+LOCUST
+Koşmayı 56 metreye kadar duyar; normal yürüyüş çok az ses çıkarır, C ile daha da sessizsin.
+Görüşü kısa ve öne dönüktür. Kovalamacada yürüyenden hızlı, koşandan yavaştır.
+Koşmayı bıraktığında son algılamadan itibaren 10 saniye hızlı takibi sürdürür.
+Son duyduğu noktaya ulaştığında yakındaki koridorlara devam eder; ardından
+18 saniye daha çevreyi arar. Sessiz hedefin yeni konumunu uzaktan öğrenemez.
+Önce son duyduğu koşu yönündeki geçişlere bakar, sonra farklı raf uçlarını arar.
+Daha yakın koşu sesi çok oyunculuda dikkatini başka oyuncuya çekebilir;
+küçük mesafe farklarında sürekli hedef değiştirip sağa sola dönmez.
+Raf çevresinde tıkanan rotasını yeniler, açılan köşelerden daha kararlı döner.
+Devriyede uzun rotalar gezer.
+Hızlar: devriye 3,8; arama 5,2; kovalamaca 7,05–7,65. Oyuncu koşusu 8.
+Koşan hedefe ulaşamadıkça öfkelenir; zigzag kaçışta önünü kesen raf bölümüne
+hazırlanıp vurabilir. Her uzun sıra sekiz bağımsız 2,4 m bölümden oluşur.
+Yalnız seçtiği bölüm devrilir; yanındaki bölümler ve ürünler ayakta kalır.
+O bölümdeki ürünler düşer, seker; yuvarlak ürünler etrafa yuvarlanır.
+Görev ürünleri de düşer ve yerleşince yerde toplanabilir; listeden kaybolmaz.
+Ürünler model gruplarıyla çizilir, hareketi biten ürünlerin fiziği durur.
+Uzun süre gürültülü kaçışta, ulaşım yolu açık olsa da yakındaki bir rafı devirebilir.
+İlk 20 saniyeden sonra, en az 60 saniye arayla ve gece başına en fazla 2 raf bölümü devirebilir.
+Vuruş öncesi metal gerilmesi, devrilmede uzun yankı ve gecikmeli yansımalar duyulur.
+Yakaladığı oyuncuyu tutar, kaldırır, saldırır ve yana fırlatır. Can kaybı ve
+başlangıca dönüş 4,3 saniyelik animasyondan sonra olur.
+
+KALİTE VE PERFORMANS
+Oyun motoru Babylon.js 9.32.0; Three.js kullanılmaz.
+Ayarlar → Kalite: Düşük kalite / Orta kalite / Yüksek kalite. Seçim hatırlanır.
+Düşük kalite eski bilgisayarlar için çözünürlük ve görüş bütçesini azaltır;
+arka ve uzak bölümler çizimden çıkarılır. Bölüm geçişlerinde görüş payı kullanılır.
+Orta ve yüksek daha uzun görüş ve daha fazla ışık/gölge bütçesi ayırır.
+4 GB RAM tek başına hız garantisi değildir; ekran kartı, işlemci ve tarayıcı da etkilidir.
+Harita 240 × 320 metre (76.800 m²), 144 raf sırası. 32 farklı yiyecek geometrisi,
+44 alışveriş ürünü vardır. Raf ürünleri daha büyük ve üçlü gruplar halinde
+sıralanır; 6 bölümde 24 düzen kullanılır ve komşu rafların çeşitleri değişir.
+Ortak raf geometrileri belleği azaltır. Ürünler sepete taşınırken doğal
+boyutuna yumuşakça küçülür.
+Sepet karakterin önünde sabittir; rafa çarptığında oyuncu ve sepet birlikte durur.
+Küçük alışveriş listesi sol üsttedir. Sürekli gece sayısı ve üst yön kutusu kaldırıldı.
+
+DOĞRULAMA
+Test sayısı ve doğrulama kapsamı DOGRULAMA.json dosyasındadır.
+1.7.0 bağımsız raf bölümleri ve ürün fiziği; çarpışma, sekme, yuvarlanma,
+farklı FPS, geç katılım, görev erişimi ve Babylon geometri testleriyle
+kontrol edildi. Görsel oynanış testi için Work tarayıcı erişimi kapalıydı.
+Eski sürümle aynı odaya bağlanılmaz; herkes 1.7.0 paketini kullanmalı.
+1.6.3 yapay zekâ değişiklikleri otomatik takip, arama, hedef seçimi ve çarpışma
+senaryolarıyla doğrulandı. Work tarayıcı erişimi kapalı olduğu için bu sürümde
+yeni görsel oynanış testi yapılmadı. Önceki tarayıcı ölçümleri aşağıdadır.
+1.6.2’de düzenli raflar ve karanlıkta fenerin üç kalite ayarında açılıp
+kapanması yerel HTTP önizlemesinde kontrol edildi. Normal oyun menüsü açıldı.
+Son F tuşu tarayıcı denemesinden önce Work tarayıcı erişimi kapandı; gerçek
+klavye olay dinleyicisinin fener ve HUD bağlantısı otomatik test edildi.
+Gece, sepet ve iki tarayıcılı oda akışı 1.6.1’de kontrol edilmişti.
+Locust gerçek iskelet sınırlarıyla 4,4 metreye ölçeklenir; dev boyut hatası giderildi.
+Ses düğümleri ve yankı kuyruğu otomatik test edilir; işitsel dinleme yapılmadı.
+Önceki iki istemcili gerçek WebRTC testi aynı bilgisayarda yapıldı. Farklı ev ve
+okul ağlarında üretim testi yapılmadı. Her bilgisayarda sıfır hata garantisi yoktur.
